@@ -7,25 +7,32 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div class="navigation">
-        <div class="nav-left">
-            <div class="nav-group">
-                 <button class="nav-button no-border large-font">☰</button> <!--Nezinau kaip gerai yra det tokius simbolius, gal geriau fotkes naudot-->
+    <header class="calendar-header">
+        <div class="header-left">
+            <div class="header-group">
+                 <button class="header-button no-border svg">
+                    <svg fill="#000000" width="36px" height="36px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1920 1468.412v112.94H0v-112.94h1920Zm0-564.706v112.941H0V903.706h1920ZM1920 339v112.941H0V339h1920Z" fill-rule="evenodd"/>
+                    </svg>
+                </button>
                 <span class="calendar-title">Calendar</span>
             </div>
-            <div class="nav-group">
-                <button class="nav-button">Today</button>
-                <button class="nav-button no-border">◀</button>
-                <button class="nav-button no-border">▶</button>
+            <div class="header-group">
+                <button class="header-button">Today</button>
+                <button class="header-button no-border">◀</button>
+                <button class="header-button no-border">▶</button>
                 <span class="current-month">May 2024</span>
             </div>
         </div>
-        <div class="nav-right">
-            <button class="nav-button">Week ▾</button>
+        <div class="header-right">
+            <button class="header-button svg">Week 
+                <svg width="15px" height="15px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill="#000000" />
+                </svg>
+            </button>
         </div>
-    </div>
-    <div class="week-header">
-        <div class="day" aria-disabled="true"></div>
+    </header>
+    <div class="week-header">     
         <div class="day">MON</div>
         <div class="day">TUE</div>
         <div class="day">WED</div>
@@ -38,7 +45,7 @@
         <button class="add-event-button">Create Event</button>
         <p>This is aside, here calendar will be inserted</p>
     </aside>
-    <div class="calendar-main">
+    <main class="calendar-main">
         <div class="time-column">
             <div class="timestamp">5:00 AM</div>
             <div class="timestamp">6:00 AM</div>
@@ -61,9 +68,8 @@
             <div class="timestamp">11:00 PM</div>
         </div>
         <div class="calendar-cells" id="calendarCells">
-
         </div>
-    </div>
+    </main>
     <script src="./script.js"></script>
 </body>
 </html>
