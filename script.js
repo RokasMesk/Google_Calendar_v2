@@ -10,9 +10,31 @@ function renderCalendarCells() {
         }
     });
 }
+function openEventCreationModal() {
+    const modal = document.getElementById("eventModal");
+    modal.style.display = "block";
+}
+function closeEventCreationModal() {
+    const modal = document.getElementById("eventModal");
+    modal.style.display = "none";
+}
+function initEventListeners() {
+    const btn = document.querySelector(".add-event-button");
+    const span = document.getElementsByClassName("close")[0];
+    const modal = document.getElementById("eventModal");
 
+    btn.addEventListener('click', openEventCreationModal);
+    span.addEventListener('click', closeEventCreationModal);
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            closeEventCreationModal();
+        }
+    });
+}
 function init() {
     renderCalendarCells();
+    initEventListeners();
 }
 
 init();
