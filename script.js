@@ -1,4 +1,4 @@
-function fillCells() {
+function renderCalendarCells() {
     document.addEventListener('DOMContentLoaded', () => {
         const calendarCells = document.getElementById('calendarCells');
         const cellsInOneColumn= 19;
@@ -12,7 +12,7 @@ function fillCells() {
 }
 
 function init() {
-    fillCells();
+    renderCalendarCells();
 }
 
 init();
