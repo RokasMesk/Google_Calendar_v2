@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Calendar Clone</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./event-modal.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/event-modal.css">
 </head>
 <body>
     <header class="calendar-header">
@@ -74,7 +74,7 @@
 
     <div id="eventModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="closeModal">&times;</span>
             <h2>Create New Event</h2>
             <form class="add-event-form" id="eventForm">
                 <label class="event-form-label" for="eventTitle">Event Title:</label>
@@ -105,6 +105,6 @@
             </form>
         </div>
     </div>
-    <script src="./script.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
