@@ -1,4 +1,4 @@
-export function renderCalendarCells() {
+export function renderCalendarCells(loadEventsCallback) {
     document.addEventListener('DOMContentLoaded', () => {
         const calendarCells = document.getElementById('calendarCells');
         const cellsInOneColumn= 19;
@@ -8,9 +8,12 @@ export function renderCalendarCells() {
             cell.className = 'cell';
             calendarCells.appendChild(cell);
         }
+        if (typeof loadEventsCallback === 'function') {
+            loadEventsCallback();
+        }
     });
 }
-function getStartOfWeek(date) {
+export function getStartOfWeek(date) {
     const day = date.getDay(); 
     const diff = date.getDate() - day + (day === 0 ? -6 : 1); 
     return new Date(date.setDate(diff));
@@ -24,7 +27,6 @@ function isToday(date) {
 export function renderWeekHeader(dateToRender) {
     const weekHeader = document.querySelector('.week-header');
     weekHeader.innerHTML='';
-
     const startOfWeek = getStartOfWeek(dateToRender);
     const wholeWeekHeader = document.createElement('div');
     wholeWeekHeader.className = 'day'

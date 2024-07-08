@@ -1,4 +1,7 @@
 import { renderWeekHeader} from './calendar.js'
+import { loadEventsForCurrentWeek } from './events.js';
+
+
 let currentDate = new Date();
 
 function updateCurrentYearAndMonth(){
@@ -10,7 +13,7 @@ function switchWeeks(days) {
     currentDate.setDate(currentDate.getDate() + days);
     updateCurrentYearAndMonth();
     renderWeekHeader(currentDate);
-
+    loadEventsForCurrentWeek(currentDate)
 }
 
 function eventListenerForSwitchingWeeksButton() {
@@ -31,4 +34,7 @@ function eventListenerForSwitchingWeeksButton() {
 export function addEventListenersToHeaderButtons(){
     updateCurrentYearAndMonth();
     eventListenerForSwitchingWeeksButton();
+    loadEventsForCurrentWeek(currentDate);
 }
+export { currentDate }
+
