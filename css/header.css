@@ -25,6 +25,7 @@
 }
 .multi-day-event {
   grid-column: span 1;
+  cursor: pointer;
   position: relative;
   height: 20px;
   background-color: red;

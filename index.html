@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./css/event-modal.css" />
     <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/event-info.css">
   </head>
   <body>
     <header class="calendar-header">
@@ -163,5 +164,22 @@
       </div>
     </div>
     <script type="module" src="./js/main.js"></script>
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEventDetailsModal">&times;</span>
+            <div class="fields-container">
+                <label class="info-label"><strong>Title:</strong></label>
+                <span class="info-content" id="eventDetailsTitle"></span>
+            </div>
+            <div class="fields-container">
+                <label class="info-label"><strong>Period:</strong></label>
+                <span class="info-content" id="eventDetailsPeriod"></span>
+            </div>
+            <div class="fields-container">
+                <label class="info-label"><strong>Description:</strong></label>
+                <span class="info-content" id="eventDetailsDescription"></span>
+            </div>
+        </div>
+    </div>
   </body>
 </html>
