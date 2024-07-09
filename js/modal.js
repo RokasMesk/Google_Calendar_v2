@@ -37,7 +37,6 @@ export function validateEventForm(event) {
         closeEventCreationModal();
     }
 }
-
 export function initModalEventListeners() {
     const createEventButton = document.querySelector(".add-event-button");
     const closeModalButton = document.getElementById("closeModal");

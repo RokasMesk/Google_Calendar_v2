@@ -37,7 +37,7 @@ export function createEventElement(event) {
         eventBar.innerHTML = `<strong>${event.title}</strong>`;
         const startDayIndex = startDay === 0 ? 7 : startDay;
         const endDayIndex = startDayIndex + totalDays - 1;
-        eventBar.style.gridColumn = `${startDayIndex+1} / ${endDayIndex + 1}`;
+        eventBar.style.gridColumn = `${startDayIndex+1} / ${endDayIndex + 2}`;
         weekHeader.appendChild(eventBar);
     }
 }
@@ -71,9 +71,10 @@ export function loadEventsForCurrentWeek(currentDate) {
     endOfWeek.setDate(startOfWeek.getDate() + 6);
     endOfWeek.setHours(23, 59, 59, 999); 
     console.log('end of week: ' + endOfWeek);
+
     events.forEach(event => {
         const eventStartDateTime = new Date(event.startDateTime);
-       
+        const eventEndDateTime = new Date(event.endDateTime);
         console.log('event start date time' + eventStartDateTime);
         if (eventStartDateTime >= startOfWeek && eventStartDateTime <= endOfWeek) {
             console.log('true');
@@ -88,3 +89,9 @@ export function getStartOfWeek(date) {
     startOfWeek.setHours(0, 0, 0, 0); 
     return startOfWeek;
 }
+function isDateInRange(date, startDate, endDate) {
+    const targetDate = new Date(date);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return targetDate >= start && targetDate <= end;
+  }
