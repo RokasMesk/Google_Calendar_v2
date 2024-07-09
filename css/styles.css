@@ -9,13 +9,13 @@
 }
 body {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-columns: 400px 1fr;
   height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
   overflow: none;
-  overscroll-behavior: none;
+  
 }
 .calendar-header {
   display: flex;
@@ -99,7 +99,6 @@ body {
   grid-template-columns: 50px 1fr;
   grid-template-rows: auto 1fr;
   gap: 0;
-  background-color: #e0e0e0;
   overflow-y: auto;
 }
 .week-header {
@@ -110,18 +109,27 @@ body {
   background-color: var(--background-color);
   margin-top: 92px;
   top: 92px;
+ 
   position: sticky;
   height: 80px;
   z-index: 1;
+}
+.multi-day-event-placeholder{
+  display: grid;
+  background-color: var(--background-color);
+  grid-column: 2 / 3;
+  grid-template-columns: repeat(7, 1fr);
 }
 .day {
   text-align: center;
   padding: 0.5em;
   background-color: var(--background-color);
   border-right: 1px solid #ccc;
+  border-bottom:1px solid var(--grid-border-color);
 }
 .day:first-child {
   grid-column: 2;
+  
 }
 .time-column {
   display: grid;

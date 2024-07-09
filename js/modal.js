@@ -1,68 +1,76 @@
-import { loadEventsForCurrentWeek, saveEventToLocalStorage } from "./events.js";
-import { currentDate } from "./header.js";
-export function openEventCreationModal() {
+import { saveEventToLocalStorage, loadEventsForCurrentWeek } from './events.js';
+import { getFirstDayOfTheWeek } from './utils.js';
+export const initModal = () => {
   const modal = document.getElementById("eventModal");
-  modal.style.display = "block";
-}
+  const eventDetailsModal = document.getElementById("eventDetailsModal");
 
-export function closeEventCreationModal() {
-  const modal = document.getElementById("eventModal");
-  modal.style.display = "none";
-}
+  const openEventCreationModal = () => {
+    modal.style.display = "block";
+  };
 
-export function validateEventForm(event) {
-  event.preventDefault();
-  const eventTitle = document.getElementById("eventTitle").value;
-  const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
-  const startTime = document.getElementById("startTime").value;
-  const endTime = document.getElementById("endTime").value;
-  const eventDescription = document.getElementById("eventDescription").value;
+  const closeEventCreationModal = () => {
+    modal.style.display = "none";
+  };
 
-  const startDateTime = new Date(`${startDate}T${startTime}`);
-  const endDateTime = new Date(`${endDate}T${endTime}`);
+  const openModal = (date) => {
+    //kai reikes jeigu reikes
+    openEventCreationModal();
+  };
 
-  if (startDateTime > endDateTime) {
-    event.preventDefault();
-    alert("End date and time must be after start date and time");
-  } else {
-    const event = {
-      title: eventTitle,
-      startDateTime: startDateTime.toISOString(),
-      endDateTime: endDateTime.toISOString(),
-      description: eventDescription,
-    };
-    saveEventToLocalStorage(event);
-    loadEventsForCurrentWeek(currentDate);
-    closeEventCreationModal();
-  }
-}
-export function initModalEventListeners() {
-  const createEventButton = document.querySelector(".add-event-button");
-  const closeModalButton = document.getElementById("closeModal");
-  const modalOverlay = document.getElementById("eventModal");
+  document.querySelector(".add-event-button").addEventListener("click", openEventCreationModal);
+  document.getElementById("closeModal").addEventListener("click", closeEventCreationModal);
 
-  createEventButton.addEventListener("click", openEventCreationModal);
-  closeModalButton.addEventListener("click", closeEventCreationModal);
-
-  document
-    .getElementById("closeEventDetailsModal")
-    .addEventListener("click", () => {
-      document.getElementById("eventDetailsModal").style.display = "none";
-
-      window.addEventListener("click", (event) => {
-        const eventInfoOverlay = document.getElementById("eventDetailsModal");
-        if (event.target === eventInfoOverlay) {
-          eventInfoOverlay.style.display = "none";
-        }
-      });
-    });
+  document.getElementById("closeEventDetailsModal").addEventListener("click", () => {
+    eventDetailsModal.style.display = "none";
+  });
 
   window.addEventListener("click", function (event) {
-    if (event.target === modalOverlay) {
+    if (event.target === modal) {
       closeEventCreationModal();
     }
+    if (event.target === eventDetailsModal) {
+      eventDetailsModal.style.display = "none";
+    }
   });
-  const eventForm = document.getElementById("eventForm");
-  eventForm.addEventListener("submit", validateEventForm);
-}
+
+  const validateEventForm = (event) => {
+    event.preventDefault();
+    const eventTitle = document.getElementById("eventTitle").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+    const eventDescription = document.getElementById("eventDescription").value;
+
+    const startDateTime = new Date(`${startDate}T${startTime}`);
+    const endDateTime = new Date(`${endDate}T${endTime}`);
+
+    if (startDateTime > endDateTime) {
+      alert("End date and time must be after start date and time");
+    } else {
+      const newEvent = {
+        title: eventTitle,
+        startDateTime: startDateTime.toISOString(),
+        endDateTime: endDateTime.toISOString(),
+        description: eventDescription,
+      };
+      saveEventToLocalStorage(newEvent);
+
+      const currentDate = new Date();
+      const startOfWeek = getFirstDayOfTheWeek(currentDate);
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+      endOfWeek.setHours(23, 59, 59, 999);
+
+      if (startDateTime <= endOfWeek && endDateTime >= startOfWeek) {
+        loadEventsForCurrentWeek(currentDate);
+      }
+      
+      closeEventCreationModal();
+    }
+  };
+
+  document.getElementById("eventForm").addEventListener("submit", validateEventForm);
+
+  return { openModal };
+};

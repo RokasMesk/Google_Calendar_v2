@@ -1,15 +1,24 @@
-import { renderCalendarCells, renderWeekHeader } from "./calendar.js";
-import { initModalEventListeners } from "./modal.js";
-import { addEventListenersToHeaderButtons } from "./header.js";
-import { loadEventsForCurrentWeek } from "./events.js";
+import { renderHeader } from './header.js';
+import { renderAside } from './aside.js';
+import { renderCalendarCells } from './calendar.js';
+import { initModal } from './modal.js';
 
-const currentDate = new Date();
+const init = () => {
+  let currentDate = new Date();
+  const { openModal } = initModal();
 
-function init() {
-  renderCalendarCells(() => loadEventsForCurrentWeek(currentDate));
-  initModalEventListeners();
-  renderWeekHeader(currentDate);
-  addEventListenersToHeaderButtons();
-}
+  const updateDate = (newDate) => {
+    if (newDate.toDateString() === currentDate.toDateString()) {
+      return;
+    }
+    currentDate = newDate;
+    renderHeader(newDate, updateDate);
+    renderCalendarCells(newDate);
+  };
+
+  renderHeader(currentDate, updateDate);
+  renderAside(openModal);
+  renderCalendarCells(currentDate);
+};
 
 init();
