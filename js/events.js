@@ -27,7 +27,32 @@ const renderShortEvent = (event) => {
   dayColumn.appendChild(eventElement);
 };
 
-const renderMultiDayEvent = (event, startDayIndex, endDayIndex) => {
+const renderMultiDayEvent = (event, startOfWeek, endOfWeek) => {
+  const eventStartDateTime = new Date(event.startDateTime);
+  const eventEndDateTime = new Date(event.endDateTime);
+  let startDayIndex = -1;
+  let endDayIndex = -1;
+  
+  const doesEventSpanEntireWeek = eventStartDateTime < startOfWeek && eventEndDateTime > endOfWeek
+  const doesEventStartBeforeAndEndCurrentWeek =eventStartDateTime < startOfWeek;
+  const doesEventStartCurrentAndEndNextWeek = eventEndDateTime > endOfWeek;
+
+  const startDay = eventStartDateTime.getDay() === 0 ? 7 : eventStartDateTime.getDay();
+  const endDay = eventEndDateTime.getDay() === 0 ? 7 : eventEndDateTime.getDay();
+  if (doesEventSpanEntireWeek) {
+    startDayIndex = 1;
+    endDayIndex = 7;
+  } else if (doesEventStartBeforeAndEndCurrentWeek) {
+    startDayIndex = 1;
+    endDayIndex = endDay;
+  } else if (doesEventStartCurrentAndEndNextWeek) {
+    startDayIndex = startDay;
+    endDayIndex = 7;
+  } else {
+    startDayIndex = startDay;
+    endDayIndex = endDay;
+  }
+
   const eventBar = createMultiDayEventElement(event);
   eventBar.style.gridColumn = `${startDayIndex} / ${endDayIndex + 1}`;
   const multiDayEventPlaceHolder = document.querySelector(".multi-day-events-container");
@@ -49,25 +74,13 @@ export const loadEventsForCurrentWeek = (currentDate) => {
     const shouldRenderEvent = eventStartDateTime <= endOfWeek && eventEndDateTime >= startOfWeek;
     const isShortEvent = totalDays <= 1;
     
-    const doesEventSpanEntireWeek = eventStartDateTime < startOfWeek && eventEndDateTime > endOfWeek
-    const doesEventStartBeforeAndEndCurrentWeek =eventStartDateTime < startOfWeek;
-    const doesEventStartCurrentAndEndNextWeek = eventEndDateTime > endOfWeek;
+   
     
     if (shouldRenderEvent) {
       if (isShortEvent) {
         renderShortEvent(event);
       } else {
-        const startDay = eventStartDateTime.getDay() === 0 ? 7 : eventStartDateTime.getDay();
-        const endDay = eventEndDateTime.getDay() === 0 ? 7 : eventEndDateTime.getDay();
-        if (doesEventSpanEntireWeek) {
-          renderMultiDayEvent(event, 1, 7);
-        } else if (doesEventStartBeforeAndEndCurrentWeek) {
-          renderMultiDayEvent(event, 1, endDay);
-        } else if (doesEventStartCurrentAndEndNextWeek) {
-          renderMultiDayEvent(event, startDay, 7);
-        } else {
-          renderMultiDayEvent(event, startDay, endDay);
-        }
+        renderMultiDayEvent(event, startOfWeek, endOfWeek);
       }
     }
   });
