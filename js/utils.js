@@ -1,3 +1,5 @@
+export const MILLISECONDS = (1000 * 60 * 60 * 24);
+
 export function getFirstDayOfTheWeek(date) {
   const day = date.getDay();
   const diff = date.getDate() - day + (day === 0 ? -6 : 1);
@@ -72,3 +74,6 @@ export const addOneHour = (hour) => {
   const addition = hour + 1;
   return formatHourMinutesForInputForm(addition);
 }
+export const differenceBetweenTwoDatesInDays = (startDate, endDate) => {
+  return Math.ceil((endDate - startDate) / MILLISECONDS);
+};

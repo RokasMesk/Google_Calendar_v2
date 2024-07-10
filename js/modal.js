@@ -26,6 +26,14 @@ export const initModal = () => {
   const openModal = (date) => {
     openEventCreationModal(date);
   };
+  const clearFormsInputFields = () => {
+    document.getElementById("eventTitle").value= '';
+    document.getElementById("eventDescription").value = '';
+    document.getElementById("startDate").value =''
+    document.getElementById("endDate").value = ''
+    document.getElementById("startTime").value = ''
+    document.getElementById("endTime").value = ''
+  }
 
   document.querySelector(".add-event-button").addEventListener("click", openEventCreationModal);
   document.getElementById("closeModal").addEventListener("click", closeEventCreationModal);
@@ -82,7 +90,7 @@ export const initModal = () => {
       } else {
         renderCalendarCells(startDateTime, openModal);
       }
-      
+      clearFormsInputFields();
       closeEventCreationModal();
     }
   };
