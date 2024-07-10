@@ -1,34 +1,27 @@
-import { renderWeekHeader} from './calendar.js'
-let currentDate = new Date();
+export const renderHeader = (date, updateDate) => {
+  const updateCurrentYearAndMonth = () => {
+    const currentMonthAndDaySpan = document.getElementById("currentMonthAndDay");
+    const options = { year: "numeric", month: "short" };
+    currentMonthAndDaySpan.textContent = date.toLocaleDateString("en-US", options);
+  };
 
-function updateCurrentYearAndMonth(){
-    const currentMonthAndDaySpan = document.getElementById('currentMonthAndDay');
-    const options = { year: 'numeric', month: 'short' };
-    currentMonthAndDaySpan.textContent = currentDate.toLocaleDateString('en-US', options);
-}
-function switchWeeks(days) {
-    currentDate.setDate(currentDate.getDate() + days);
-    updateCurrentYearAndMonth();
-    renderWeekHeader(currentDate);
+  const switchWeeks = (days) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    updateDate(newDate);
+  };
 
-}
+  document.getElementById("todayButton").addEventListener("click", () => {
+    updateDate(new Date());
+  });
 
-function eventListenerForSwitchingWeeksButton() {
-    document.getElementById('todayButton').addEventListener('click', () => {
-        currentDate = new Date();
-        switchWeeks(0);
-    });
+  document.getElementById("previousWeekButton").addEventListener("click", () => {
+    switchWeeks(-7);
+  });
 
-    document.getElementById('previousWeekButton').addEventListener('click', () => {
-        switchWeeks(-7);
-    });
+  document.getElementById("nextWeekButton").addEventListener("click", () => {
+    switchWeeks(7);
+  });
 
-    document.getElementById('nextWeekButton').addEventListener('click', () => {
-        switchWeeks(7);
-    });
-}
-
-export function addEventListenersToHeaderButtons(){
-    updateCurrentYearAndMonth();
-    eventListenerForSwitchingWeeksButton();
-}
+  updateCurrentYearAndMonth();
+};

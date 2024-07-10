@@ -1,0 +1,22 @@
+#eventDetailsModal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+#eventDetailsModal .modal-content .fields-container {
+    margin-bottom: 10px;
+}
+#eventDetailsModal .modal-content .info-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+#eventDetailsModal .modal-content .info-content {
+    display: block;
+    padding: 5px 0;
+}

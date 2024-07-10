@@ -1,26 +1,38 @@
 .day {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0.5em;
-    background-color: var(--background-color);
-    border-right: 1px solid #ccc;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5em;
+  background-color: var(--background-color);
+  border-right: 1px solid #ccc;
+  position: relative;
 }
-
 .day-number {
-    margin-top: 5px;
-    font-size: 18px;
-    margin-top: 15px;
+  margin-top: 5px;
+  font-size: 18px;
+  margin-top: 15px;
 }
-.day-name{
-    font-size: 18px;
+.day-name {
+  font-size: 18px;
 }
 .current-day .day-number {
-    background-color: rgb(85, 135, 173);
-    color: white;
-    width: 25%;
-    text-align: center;   
-    border-radius: 50%;
+  background-color: rgb(85, 135, 173);
+  color: white;
+  width: 25%;
+  text-align: center;
+  border-radius: 50%;
+}
+.multi-day-event {
+  grid-column: span 1;
+  cursor: pointer;
+  position: relative;
+  height: 20px;
+  background-color: red;
+  border: 1px solid rgb(85, 135, 173);
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  padding: 2px 5px;
+  box-sizing: border-box;
 }
