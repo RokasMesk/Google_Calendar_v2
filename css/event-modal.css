@@ -79,3 +79,17 @@
 .datetime:last-child {
   margin-right: 0;
 }
+.error-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+
+  font-size: 0.875em;
+  margin-top: 5px;
+  display: none;
+  width: 100%;
+}

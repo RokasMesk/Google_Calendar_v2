@@ -15,16 +15,15 @@ export function isToday(date) {
   );
 }
 
-export function getEventsFromLocalStorage() {
-  let events = JSON.parse(localStorage.getItem("calendarEvents")) || [];
-  return events;
-}
-
 export function createEventElement(event) {
   const eventElement = document.createElement('div');
   eventElement.className = 'calendar-event';
   eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
-  eventElement.addEventListener('click', () => showEventDetails(event));
+  eventElement.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showEventDetails(event)
+  });
+
   return eventElement;
 }
 
@@ -54,4 +53,22 @@ export function clearEvents() {
   multipleDayEvents.forEach((multipleEventElement) =>
     multipleEventElement.remove()
   );
+}
+
+export function areTwoDatesEqual(firstDate, secondDate) {
+  return firstDate.getFullYear() === secondDate.getFullYear()
+    && firstDate.getMonth() === secondDate.getMonth()
+      && firstDate.getDate() === secondDate.getDate()
+}
+
+export const formatHourMinutesForInputForm = (hour) => {
+  if (hour < 10){
+    return `0${hour}:00`
+  }
+  return `${hour}:00`
+};
+
+export const addOneHour = (hour) => {
+  const addition = hour + 1;
+  return formatHourMinutesForInputForm(addition);
 }

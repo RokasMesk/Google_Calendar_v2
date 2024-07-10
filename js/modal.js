@@ -1,20 +1,30 @@
-import { saveEventToLocalStorage, loadEventsForCurrentWeek } from './events.js';
-import { getFirstDayOfTheWeek } from './utils.js';
+import {  loadEventsForCurrentWeek } from './events.js';
+import { saveEventToLocalStorage} from './services.js'
+import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour } from './utils.js';
+import { renderCalendarCells } from './calendar.js';
+
 export const initModal = () => {
-  const modal = document.getElementById("eventModal");
+  const modalOverlay = document.getElementById("eventModal");
   const eventDetailsModal = document.getElementById("eventDetailsModal");
 
-  const openEventCreationModal = () => {
-    modal.style.display = "block";
+  const openEventCreationModal = (date) => {
+    modalOverlay.style.display = "block";
+  
+    if (date){
+      const cellDate = new Date(date);
+      document.getElementById("startDate").value = date.toISOString().split('T')[0];
+      document.getElementById("endDate").value = date.toISOString().split('T')[0];
+      document.getElementById("startTime").value = formatHourMinutesForInputForm(cellDate.getHours())
+      document.getElementById("endTime").value = addOneHour(cellDate.getHours());
+    }
   };
 
   const closeEventCreationModal = () => {
-    modal.style.display = "none";
+    modalOverlay.style.display = "none";
   };
 
   const openModal = (date) => {
-    //kai reikes jeigu reikes
-    openEventCreationModal();
+    openEventCreationModal(date);
   };
 
   document.querySelector(".add-event-button").addEventListener("click", openEventCreationModal);
@@ -25,7 +35,7 @@ export const initModal = () => {
   });
 
   window.addEventListener("click", function (event) {
-    if (event.target === modal) {
+    if (event.target === modalOverlay) {
       closeEventCreationModal();
     }
     if (event.target === eventDetailsModal) {
@@ -45,8 +55,11 @@ export const initModal = () => {
     const startDateTime = new Date(`${startDate}T${startTime}`);
     const endDateTime = new Date(`${endDate}T${endTime}`);
 
+    document.getElementById("endDateError").style.display = 'none';
+
     if (startDateTime > endDateTime) {
-      alert("End date and time must be after start date and time");
+      document.getElementById("endDateError").innerText = "* End date and time must be after start date and time";
+      document.getElementById("endDateError").style.display = 'block';
     } else {
       const newEvent = {
         title: eventTitle,
@@ -62,8 +75,12 @@ export const initModal = () => {
       endOfWeek.setDate(startOfWeek.getDate() + 6);
       endOfWeek.setHours(23, 59, 59, 999);
 
-      if (startDateTime <= endOfWeek && endDateTime >= startOfWeek) {
+      const eventFallsInCurrentWeek = startDateTime <= endOfWeek && endDateTime >= startOfWeek;
+
+      if (eventFallsInCurrentWeek) {
         loadEventsForCurrentWeek(currentDate);
+      } else {
+        renderCalendarCells(startDateTime, openModal);
       }
       
       closeEventCreationModal();

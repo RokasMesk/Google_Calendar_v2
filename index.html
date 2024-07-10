@@ -63,7 +63,7 @@
     </aside>
     <main class="calendar-main">
       <div class="week-header"></div>
-      <div class="multi-day-event-placeholder">
+      <div class="multi-day-events-container">
       
       </div>
       <div class="time-column">
@@ -96,73 +96,31 @@
         <h2>Create New Event</h2>
         <form class="add-event-form" id="eventForm">
           <label class="event-form-label" for="eventTitle">Event Title:</label>
-          <input
-            class="event-form-input"
-            type="text"
-            id="eventTitle"
-            name="eventTitle"
-            required
-          />
+          <input class="event-form-input" type="text" id="eventTitle" name="eventTitle" required />
           <div class="datetime-group">
             <div class="datetime">
-              <label class="event-form-label" for="startDate"
-                >Start Date:</label
-              >
-              <input
-                class="event-form-input"
-                type="date"
-                id="startDate"
-                name="startDate"
-                required
-              />
+              <label class="event-form-label" for="startDate">Start Date:</label>
+              <input class="event-form-input" type="date" id="startDate" name="startDate" required />
             </div>
             <div class="datetime">
-              <label class="event-form-label" for="startTime"
-                >Start Time:</label
-              >
-              <input
-                class="event-form-input"
-                type="time"
-                id="startTime"
-                name="startTime"
-                required
-              />
+              <label class="event-form-label" for="startTime">Start Time:</label>
+              <input class="event-form-input" type="time" id="startTime" name="startTime" required />
             </div>
           </div>
           <div class="datetime-group">
             <div class="datetime">
               <label class="event-form-label" for="endDate">End Date:</label>
-              <input
-                class="event-form-input"
-                type="date"
-                id="endDate"
-                name="endDate"
-                required
-              />
+              <input class="event-form-input" type="date" id="endDate" name="endDate" required />
             </div>
             <div class="datetime">
               <label class="event-form-label" for="endTime">End Time:</label>
-              <input
-                class="event-form-input"
-                type="time"
-                id="endTime"
-                name="endTime"
-                required
-              />
+              <input class="event-form-input" type="time" id="endTime" name="endTime" required />
             </div>
           </div>
-          <label class="event-form-label" for="eventDescription"
-            >Description:</label
-          >
-          <textarea
-            class="event-form-input"
-            id="eventDescription"
-            name="eventDescription"
-            required
-          ></textarea>
-          <button class="event-submit-button" type="submit">
-            Create Event
-          </button>
+            <span class="error-message" id="endDateError"></span>
+          <label class="event-form-label" for="eventDescription">Description:</label>
+          <textarea class="event-form-input" id="eventDescription" name="eventDescription" required></textarea>        
+          <button class="event-submit-button" type="submit">Create Event</button>
         </form>
       </div>
     </div>

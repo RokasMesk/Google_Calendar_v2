@@ -1,11 +1,7 @@
-import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, getEventsFromLocalStorage, clearEvents } from './utils.js';
+import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents } from './utils.js';
+import {getEventsFromLocalStorage} from './services.js'
 const MILLISECONDS = (1000 * 60 * 60 * 24);
 const HOUR_IN_MINUTES = 60;
-export function saveEventToLocalStorage(event) {
-  let events = JSON.parse(localStorage.getItem("calendarEvents")) || [];
-  events.push(event);
-  localStorage.setItem("calendarEvents", JSON.stringify(events));
-}
 
 const renderShortEvent = (event) => {
   const eventElement = createEventElement(event);
@@ -38,7 +34,7 @@ const renderMultiDayEvent = (event) => {
   let startDay = startDateTime.getDay();
   const totalDays = Math.ceil((endDateTime - startDateTime) / MILLISECONDS);
 
-  const multiDayEventPlaceHolder = document.querySelector(".multi-day-event-placeholder");
+  const multiDayEventPlaceHolder = document.querySelector(".multi-day-events-container");
   const startDayIndex = startDay === 0 ? 7 : startDay;
   const endDayIndex = startDayIndex + totalDays - 1;
   eventBar.style.gridColumn = `${startDayIndex } / ${endDayIndex + 1}`;
@@ -57,10 +53,11 @@ export const loadEventsForCurrentWeek = (currentDate) => {
   events.forEach((event) => {
     const eventStartDateTime = new Date(event.startDateTime);
     const eventEndDateTime = new Date(event.endDateTime);
+    const shouldRenderEvent = eventStartDateTime <= endOfWeek && eventEndDateTime >= startOfWeek
     const totalDays = Math.ceil((eventEndDateTime - eventStartDateTime) / MILLISECONDS);
-    
-    if (eventStartDateTime <= endOfWeek && eventEndDateTime >= startOfWeek) {
-      if (totalDays <= 1) {
+    const isShortEvent = totalDays <= 1
+    if (shouldRenderEvent) {
+      if (isShortEvent) {
         renderShortEvent(event);
       } else {
         renderMultiDayEvent(event);
