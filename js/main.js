@@ -15,10 +15,11 @@ const init = () => {
     currentDate = newDate;
     renderHeader(newDate, updateDate);
     renderCalendarCells(newDate, openModal);
+    renderAside(newDate, updateDate); 
   };
 
   renderHeader(currentDate, updateDate);
-  renderAside(openModal);
+  renderAside(currentDate, updateDate);
   renderCalendarCells(currentDate, openModal);
 };
 

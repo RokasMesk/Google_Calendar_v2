@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/event-modal.css" />
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/event-info.css">
+    <link rel="stylesheet" href="./css/aside-calendar.css"> 
   </head>
   <body>
     <header class="calendar-header">
@@ -59,7 +60,26 @@
     </header>
     <aside class="month-aside">
       <button class="add-event-button">Create Event</button>
-      <p>This is aside, here calendar will be inserted</p>
+      <div class="calendar-widget">
+       
+        <div class="calendar-widget-header">
+          <span id="currentDateCalendarWidget" class="calendar-widget-current-day"></span>
+          <div class="calendar-widget-controls-group">
+            <button id="prevMonth" class="switch-weeks-widget">&lt;</button>
+            <button id="nextMonth" class="switch-weeks-widget">&gt;</button>
+          </div>
+        </div>
+        <div class="calendar-widget-days">
+          <div>Su</div>
+          <div>Mo</div>
+          <div>Tu</div>
+          <div>We</div>
+          <div>Th</div>
+          <div>Fr</div>
+          <div>Sa</div>
+        </div>
+        <div class="calendar-widget-dates" id="calendarDates"></div>
+      </div>
     </aside>
     <main class="calendar-main">
       <div class="week-header"></div>
