@@ -1,9 +1,10 @@
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
 
 export function getFirstDayOfTheWeek(date) {
-  const day = date.getDay();
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-  const startOfWeek = new Date(date.setDate(diff));
+  let newDate = new Date(date);
+  const day = newDate.getDay();
+  const diff = newDate.getDate() - day + (day === 0 ? -6 : 1);
+  const startOfWeek = new Date(newDate.setDate(diff));
   startOfWeek.setHours(0, 0, 0, 0);
   return startOfWeek;
 }

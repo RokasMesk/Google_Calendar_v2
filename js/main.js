@@ -12,14 +12,15 @@ const init = () => {
     if (areTwoDatesEqual(newDate, currentDate)) {
       return;
     }
+    console.log(newDate);
     currentDate = newDate;
     renderHeader(newDate, updateDate);
     renderCalendarCells(newDate, openModal);
-    renderAside(newDate, updateDate); 
+    renderAside(newDate, updateDate, openModal); 
   };
 
   renderHeader(currentDate, updateDate);
-  renderAside(currentDate, updateDate);
+  renderAside(currentDate, updateDate, openModal);
   renderCalendarCells(currentDate, openModal);
 };
 

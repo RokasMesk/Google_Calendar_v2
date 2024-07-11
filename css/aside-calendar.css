@@ -1,7 +1,8 @@
 .calendar-widget-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr); 
-    text-align: center;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 5px;
     color: grey;
   }
@@ -9,16 +10,27 @@
   .calendar-widget-dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr); 
+    align-items: center;
+    justify-content: center;
   }
   
-  .calendar-widget-dates div, .calendar-widget-days div {
+  .calendar-widget-dates div  {
     text-align: center;
     padding: 10px;
-    cursor:pointer;
+    cursor:pointer
+  }
+  .calendar-widget-dates div:hover  {
+    background-color: #a0beee;
+    color: black;
+    border-radius: 50%;
+  }
+  .calendar-widget-days div {
+    text-align: center;
+    padding: 10px;
   }
   
   .calendar-widget-dates div.selected {
-    background-color: #6f9eeb;
+    background-color: #a0beee;
     color: black;
     border-radius: 50%;
   }
@@ -36,15 +48,23 @@
   }
   
   .switch-weeks-widget {
+    font-family: 'Courier New', Courier, monospace;
     background-color: white;
     border: none;
+    font-weight: lighter;
     font-size: 20px;
+    cursor:pointer;
+  }
+  .switch-weeks-widget:hover {
+    font-weight:bold;
   }
   
   .calendar-widget-header {
     display: flex;
     align-items: center;
+    padding-left: 6px;
     justify-content: space-between;
     font-weight: 600;
+    font-size:20px
   }
   

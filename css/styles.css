@@ -77,7 +77,7 @@ body {
   bottom: 0;
   overflow-y: auto;
   z-index: 2;
-  width: 250px;
+  width: 300px;
 }
 .add-event-button {
   display: flex;
