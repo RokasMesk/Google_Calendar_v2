@@ -77,13 +77,13 @@ body {
   bottom: 0;
   overflow-y: auto;
   z-index: 2;
-  width: 200px;
+  width: 300px;
 }
 .add-event-button {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 24px;
