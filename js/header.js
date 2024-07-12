@@ -22,6 +22,6 @@ export const renderHeader = (date, updateDate) => {
   document.getElementById("nextWeekButton").addEventListener("click", () => {
     switchWeeks(7);
   });
-
+  
   updateCurrentYearAndMonth();
 };

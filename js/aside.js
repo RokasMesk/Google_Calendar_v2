@@ -14,23 +14,20 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     currentMonth.textContent = displayedMonth.toLocaleDateString("en-US", { year: 'numeric', month: 'short' });
     renderMonthDays();
   };
-
   const createDateCell = (day, className, clickHandler) => {
     const dateCell = document.createElement('div');
     dateCell.textContent = day;
     if (className) {
       dateCell.classList.add(className);
     }
-    if (clickHandler) {
-      dateCell.addEventListener('click', clickHandler);
-    }
+    dateCell.addEventListener('click', clickHandler);
     calendarDates.appendChild(dateCell);
     return dateCell;
   };
 
   const renderPreviousMonthDays = (startDay, previousMonthTotalDays) => {
-    for (let i = 0; i < startDay - 1; i++) { 
-      const day = previousMonthTotalDays - startDay + 2 + i;
+    for (let i = 0; i < startDay; i++) { 
+      const day = previousMonthTotalDays - startDay + 1 + i;
       const cellDate = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() - 1, day);
       createDateCell(day, 'prev-month-day', () => {
         displayedMonth.setMonth(displayedMonth.getMonth() - 1);
@@ -45,7 +42,12 @@ export const renderAside = (currentDate, updateDate, openModal) => {
   const renderCurrentMonthDays = (totalDays) => {
     for (let day = 1; day <= totalDays; day++) {
       const cellDate = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth(), day);
-      const className = isToday(cellDate) ? 'today' : (selectedDate && areTwoDatesEqual(cellDate, selectedDate)) ? 'selected' : '';
+      let className = '';
+      if (isToday(cellDate)) {
+        className = 'today';
+      } else if (selectedDate && areTwoDatesEqual(cellDate, selectedDate)) {
+        className = 'selected';
+      }
       createDateCell(day, className, () => {
         selectedDate = cellDate;
         updateDate(selectedDate);
@@ -81,7 +83,7 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     const previousMonthLastDay = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth(), 0);
     const previousMonthTotalDays = previousMonthLastDay.getDate();
 
-    renderPreviousMonthDays(startDay, previousMonthTotalDays);
+    renderPreviousMonthDays(startDay-1, previousMonthTotalDays);
     renderCurrentMonthDays(totalDays);
     renderNextMonthDays(startDay + totalDays - 1);
   };

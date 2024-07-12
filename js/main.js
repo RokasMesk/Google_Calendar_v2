@@ -12,7 +12,6 @@ const init = () => {
     if (areTwoDatesEqual(newDate, currentDate)) {
       return;
     }
-    console.log(newDate);
     currentDate = newDate;
     renderHeader(newDate, updateDate);
     renderCalendarCells(newDate, openModal);
