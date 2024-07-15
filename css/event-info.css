@@ -20,3 +20,11 @@
     display: block;
     padding: 5px 0;
 }
+#eventDetailsModal .modal-content .delete-event-button {
+    border-radius: 10px;
+    color: white;
+    background-color: red;
+    border:none;
+    cursor: pointer;
+    padding: 10px 20px;
+}
