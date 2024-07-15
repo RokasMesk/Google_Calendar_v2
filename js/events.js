@@ -1,9 +1,25 @@
-import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays} from './utils.js';
+import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays, dateIsInRange} from './utils.js';
 import { getEventsFromLocalStorage } from './services.js';
 
 const HOUR_IN_MINUTES = 60;
+const doesEventOverlapWithOtherEvents = (eventCurrent) => {
+  const eventStartDateTime = new Date(eventCurrent.startDateTime);
+  const eventEndDateTime = new Date(eventCurrent.endDateTime);
+  const events = getEventsFromLocalStorage();
 
+  return events.filter((event) => {
+    const eventStart = new Date(event.startDateTime);
+    const eventEnd = new Date(event.endDateTime);
+    return (
+      (dateIsInRange(eventStart, eventEnd, eventStartDateTime) || 
+      dateIsInRange(eventStart, eventEnd, eventEndDateTime)) 
+   
+    );
+  });
+}
 const renderShortEvent = (event) => {
+  const overlappingEvents = doesEventOverlapWithOtherEvents(event);
+  
   const eventElement = createEventElement(event);
   const startDateTime = new Date(event.startDateTime);
   const endDateTime = new Date(event.endDateTime);
@@ -20,10 +36,21 @@ const renderShortEvent = (event) => {
     console.error("Day column not found for day:", startDay);
     return;
   }
+
+  const dayColumnWidth = dayColumn.offsetWidth;
+
   const eventDuration = (endHour - startHour) * HOUR_IN_MINUTES;
   eventElement.style.position = "absolute";
   eventElement.style.top = `${startHour * HOUR_IN_MINUTES - 5 * 60}px`;
   eventElement.style.height = `${eventDuration}px`;
+
+  const totalOverlappingEvents = overlappingEvents.length;
+  const width = dayColumnWidth / totalOverlappingEvents; 
+  const index = overlappingEvents.findIndex(e => e.id === event.id);
+  const weekDayOffset = (startDay-1)*dayColumnWidth;
+  eventElement.style.width = `${dayColumnWidth-(width*index)}px`;
+  eventElement.style.left = `${index * width+(weekDayOffset)}px`;
+
   dayColumn.appendChild(eventElement);
 };
 
@@ -73,8 +100,6 @@ export const loadEventsForCurrentWeek = (currentDate) => {
     const totalDays = differenceBetweenTwoDatesInDays(eventStartDateTime, eventEndDateTime);
     const shouldRenderEvent = eventStartDateTime <= endOfWeek && eventEndDateTime >= startOfWeek;
     const isShortEvent = totalDays <= 1;
-    
-   
     
     if (shouldRenderEvent) {
       if (isShortEvent) {

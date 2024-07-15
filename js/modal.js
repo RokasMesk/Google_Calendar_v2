@@ -1,6 +1,6 @@
 import {  loadEventsForCurrentWeek } from './events.js';
 import { saveEventToLocalStorage} from './services.js'
-import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour } from './utils.js';
+import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour,closeEventDetailsModal, generateSimpleID } from './utils.js';
 import { renderCalendarCells } from './calendar.js';
 
 export const initModal = () => {
@@ -23,6 +23,7 @@ export const initModal = () => {
     modalOverlay.style.display = "none";
   };
 
+
   const openModal = (date) => {
     openEventCreationModal(date);
   };
@@ -39,7 +40,7 @@ export const initModal = () => {
   document.getElementById("closeModal").addEventListener("click", closeEventCreationModal);
 
   document.getElementById("closeEventDetailsModal").addEventListener("click", () => {
-    eventDetailsModal.style.display = "none";
+    closeEventDetailsModal();
   });
 
   window.addEventListener("click", function (event) {
@@ -47,7 +48,7 @@ export const initModal = () => {
       closeEventCreationModal();
     }
     if (event.target === eventDetailsModal) {
-      eventDetailsModal.style.display = "none";
+      closeEventDetailsModal();
     }
   });
 
@@ -70,6 +71,7 @@ export const initModal = () => {
       document.getElementById("endDateError").style.display = 'block';
     } else {
       const newEvent = {
+        id: generateSimpleID(),
         title: eventTitle,
         startDateTime: startDateTime.toISOString(),
         endDateTime: endDateTime.toISOString(),

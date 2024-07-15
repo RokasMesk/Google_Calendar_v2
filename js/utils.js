@@ -1,3 +1,6 @@
+import { getEventsFromLocalStorage } from "./services.js";
+import { loadEventsForCurrentWeek } from "./events.js";
+
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
 
 export function getFirstDayOfTheWeek(date) {
@@ -21,7 +24,7 @@ export function isToday(date) {
 export function createEventElement(event) {
   const eventElement = document.createElement('div');
   eventElement.className = 'calendar-event';
-  eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
+  eventElement.innerHTML = `<strong>${event.title}</strong>`;
   eventElement.addEventListener('click', (e) => {
     e.stopPropagation();
     showEventDetails(event)
@@ -47,6 +50,19 @@ function showEventDetails(event) {
   ).toLocaleString()} - ${new Date(event.endDateTime).toLocaleString()}`;
   document.getElementById("eventDetailsDescription").innerText = event.description;
   eventDetailsModal.style.display = "block";
+  eventDetailsModal.style.zIndex = 2000;
+  const deleteEventButton = document.getElementById('deleteEventButton');
+  deleteEventButton.addEventListener('click', () => deleteEventFromStorage(event));
+}
+function deleteEventFromStorage(event) {
+  let events = getEventsFromLocalStorage();
+  console.log(events);
+  events = events.filter(e => e.id != event.id);
+  
+  localStorage.setItem('calendarEvents', JSON.stringify(events));
+  
+  closeEventDetailsModal();
+  loadEventsForCurrentWeek(event.startDateTime);
 }
 
 export function clearEvents() {
@@ -57,7 +73,10 @@ export function clearEvents() {
     multipleEventElement.remove()
   );
 }
-
+export function closeEventDetailsModal() {
+  const eventDetailsModal = document.getElementById('eventDetailsModal');
+  eventDetailsModal.style.display = 'none';
+}
 export function areTwoDatesEqual(firstDate, secondDate) {
   return firstDate.getFullYear() === secondDate.getFullYear()
     && firstDate.getMonth() === secondDate.getMonth()
@@ -78,3 +97,9 @@ export const addOneHour = (hour) => {
 export const differenceBetweenTwoDatesInDays = (startDate, endDate) => {
   return Math.ceil((endDate - startDate) / MILLISECONDS);
 };
+export const dateIsInRange = (startDate, endDate, dateToCheck) => {
+  return (startDate <= dateToCheck && endDate >= dateToCheck)
+}
+export function generateSimpleID() {
+  return `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+}
