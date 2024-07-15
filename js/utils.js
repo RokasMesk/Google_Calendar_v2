@@ -1,6 +1,4 @@
-import { getEventsFromLocalStorage } from "./services.js";
-import { loadEventsForCurrentWeek } from "./events.js";
-
+import { deleteEventFromStorage } from "./services.js";
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
 
 export function getFirstDayOfTheWeek(date) {
@@ -54,15 +52,6 @@ function showEventDetails(event) {
   const deleteEventButton = document.getElementById('deleteEventButton');
   deleteEventButton.addEventListener('click', () => deleteEventFromStorage(event));
 }
-function deleteEventFromStorage(event) {
-  let events = getEventsFromLocalStorage();
-  events = events.filter(e => e.id !== event.id);
-  
-  localStorage.setItem('calendarEvents', JSON.stringify(events));
-  
-  closeEventDetailsModal();
-  loadEventsForCurrentWeek(event.startDateTime);
-}
 
 export function clearEvents() {
   const eventElements = document.querySelectorAll(".calendar-event");
@@ -71,10 +60,6 @@ export function clearEvents() {
   multipleDayEvents.forEach((multipleEventElement) =>
     multipleEventElement.remove()
   );
-}
-export function closeEventDetailsModal() {
-  const eventDetailsModal = document.getElementById('eventDetailsModal');
-  eventDetailsModal.style.display = 'none';
 }
 export function areTwoDatesEqual(firstDate, secondDate) {
   return firstDate.getFullYear() === secondDate.getFullYear()

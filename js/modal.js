@@ -1,12 +1,15 @@
-import {  loadEventsForCurrentWeek } from './events.js';
+import { loadEventsForCurrentWeek } from './events.js';
 import { saveEventToLocalStorage} from './services.js'
-import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour,closeEventDetailsModal, generateSimpleID } from './utils.js';
+import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour, generateSimpleID } from './utils.js';
 import { renderCalendarCells } from './calendar.js';
-
+export function closeEventDetailsModal() {
+  const eventDetailsModal = document.getElementById('eventDetailsModal');
+  eventDetailsModal.style.display = 'none';
+}
 export const initModal = () => {
   const modalOverlay = document.getElementById("eventModal");
   const eventDetailsModal = document.getElementById("eventDetailsModal");
-
+ 
   const openEventCreationModal = (date) => {
     modalOverlay.style.display = "block";
   
@@ -22,7 +25,6 @@ export const initModal = () => {
   const closeEventCreationModal = () => {
     modalOverlay.style.display = "none";
   };
-
 
   const openModal = (date) => {
     openEventCreationModal(date);
