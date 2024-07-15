@@ -1,8 +1,8 @@
 import { loadEventsForCurrentWeek } from './events.js';
 import { getFirstDayOfTheWeek, isToday } from './utils.js';
 
-export const renderCalendarCells = (date, openModal) => {
-  const calendarCells = document.getElementById("calendarCells");
+export const renderCalendarCells = (date: Date, openModal: (date:Date)=> void): void => {
+  const calendarCells = document.getElementById("calendarCells") as HTMLElement;
   calendarCells.innerHTML = ''; 
   const cellsInOneColumn = 19;
   const daysInWeek = 7;
@@ -25,8 +25,8 @@ export const renderCalendarCells = (date, openModal) => {
   loadEventsForCurrentWeek(date);
 };
 
-export const renderWeekHeader = (date) => {
-  const weekHeader = document.querySelector(".week-header");
+export const renderWeekHeader = (date:Date): void => {
+  const weekHeader = document.querySelector(".week-header") as HTMLElement;
   weekHeader.innerHTML = "";
   const firstDayOfTheWeek = getFirstDayOfTheWeek(date);
   const wholeWeekHeader = document.createElement("div");

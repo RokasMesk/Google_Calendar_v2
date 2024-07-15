@@ -4,11 +4,11 @@ import { renderCalendarCells } from './calendar.js';
 import { initModal } from './modal.js';
 import { areTwoDatesEqual } from './utils.js';
 
-const init = () => {
+const init = (): void => {
   let currentDate = new Date();
   const { openModal } = initModal();
 
-  const updateDate = (newDate) => {
+  const updateDate = (newDate: Date) => {
     if (areTwoDatesEqual(newDate, currentDate)) {
       return;
     }
