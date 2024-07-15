@@ -56,8 +56,7 @@ function showEventDetails(event) {
 }
 function deleteEventFromStorage(event) {
   let events = getEventsFromLocalStorage();
-  console.log(events);
-  events = events.filter(e => e.id != event.id);
+  events = events.filter(e => e.id !== event.id);
   
   localStorage.setItem('calendarEvents', JSON.stringify(events));
   
