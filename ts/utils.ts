@@ -2,7 +2,7 @@ import { deleteEventFromStorage } from "./services.js";
 import { Event } from "./models.js";
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
 
-export function getFirstDayOfTheWeek(date: Date): Date{
+export function getFirstDayOfTheWeek(date: Date): Date {
   let newDate = new Date(date);
   const day = newDate.getDay();
   const diff = newDate.getDate() - day + (day === 0 ? -6 : 1);
