@@ -1,6 +1,6 @@
-import { closeEventDetailsModal } from "./modal.js";
-import { loadEventsForCurrentWeek } from "./events.js";
-import { Event} from './models.js'
+import { closeEventDetailsModal } from "./modal.ts";
+import { loadEventsForCurrentWeek } from "./events.ts";
+import { Event} from './types.ts'
 export function saveEventToLocalStorage(event:Event): void {
   let events: Event[] = JSON.parse(localStorage.getItem("calendarEvents") || '[]');
   events.push(event);
@@ -16,7 +16,7 @@ export function deleteEventFromStorage(event:Event): void {
   let events: Event[] = getEventsFromLocalStorage();
   events = events.filter(e => e.id !== event.id);
   
-  localStorage.setItem('calendarEvents', JSON.stringify(events));
+  localStorage.setItem("calendarEvents", JSON.stringify(events));
   closeEventDetailsModal();
   loadEventsForCurrentWeek(new Date(event.startDateTime));
 }

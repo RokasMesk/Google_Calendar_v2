@@ -1,7 +1,7 @@
-import { loadEventsForCurrentWeek } from './events.js';
-import { saveEventToLocalStorage} from './services.js'
-import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour, generateSimpleID } from './utils.js';
-import { renderCalendarCells } from './calendar.js';
+import { loadEventsForCurrentWeek } from './events.ts';
+import { saveEventToLocalStorage} from './services.ts'
+import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour, generateSimpleID } from './utils.ts';
+import { renderCalendarCells } from './calendar.ts';
 
 export function closeEventDetailsModal(): void {
   const eventDetailsModal = document.getElementById('eventDetailsModal') as HTMLElement;

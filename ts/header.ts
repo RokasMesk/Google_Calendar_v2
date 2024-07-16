@@ -1,6 +1,6 @@
-import { ButtonAction } from './enums.js';
+import { ButtonAction, UpdateDateType } from './types.ts';
 
-export const renderHeader = (date: Date, updateDate: (newDate: Date) => void) => {
+export const renderHeader = (date: Date, updateDate: UpdateDateType) => {
   const updateCurrentYearAndMonth = () => {
     const currentMonthAndDaySpan = document.getElementById("currentMonthAndDay") as HTMLElement;
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short" };

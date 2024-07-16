@@ -1,5 +1,5 @@
-import { loadEventsForCurrentWeek } from './events.js';
-import { getFirstDayOfTheWeek, isToday } from './utils.js';
+import { loadEventsForCurrentWeek } from './events.ts';
+import { getFirstDayOfTheWeek, isToday } from './utils.ts';
 
 export const renderCalendarCells = (date: Date, openModal: (date:Date)=> void): void => {
   const calendarCells = document.getElementById("calendarCells") as HTMLElement;
