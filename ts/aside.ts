@@ -1,5 +1,5 @@
-import { UpdateDateType } from './types.ts';
-import { isToday, areTwoDatesEqual } from './utils.ts';
+import { UpdateDateType } from './types.js';
+import { isToday, areTwoDatesEqual } from './utils.js';
 
 export const renderAside = (currentDate: Date, updateDate: UpdateDateType, openModal: () => void) => {
   const currentMonth = document.getElementById("currentDateCalendarWidget") as HTMLElement;

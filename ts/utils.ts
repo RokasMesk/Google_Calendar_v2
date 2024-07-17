@@ -1,5 +1,5 @@
-import { deleteEventFromStorage } from "./services.ts";
-import { Event } from "./types.ts";
+import { deleteEventFromStorage } from "./services.js";
+import { Event } from "./types.js";
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
 
 export function getFirstDayOfTheWeek(date: Date): Date {

@@ -1,6 +1,6 @@
-import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays, dateIsInRange} from './utils.ts';
-import { getEventsFromLocalStorage } from './services.ts';
-import { Event } from './types.ts';
+import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays, dateIsInRange} from './utils.js';
+import { getEventsFromLocalStorage } from './services.js';
+import { Event } from './types.js';
 const HOUR_IN_MINUTES = 60;
 
 const doesEventOverlapWithOtherEvents = (eventCurrent: Event): Event[] => {

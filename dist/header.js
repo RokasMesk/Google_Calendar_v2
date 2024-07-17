@@ -1,4 +1,4 @@
-import { ButtonAction } from './enums.js';
+import { ButtonAction } from './types.js';
 export const renderHeader = (date, updateDate) => {
     const updateCurrentYearAndMonth = () => {
         const currentMonthAndDaySpan = document.getElementById("currentMonthAndDay");

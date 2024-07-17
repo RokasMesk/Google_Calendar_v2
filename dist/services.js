@@ -12,7 +12,7 @@ export function getEventsFromLocalStorage() {
 export function deleteEventFromStorage(event) {
     let events = getEventsFromLocalStorage();
     events = events.filter(e => e.id !== event.id);
-    localStorage.setItem('calendarEvents', JSON.stringify(events));
+    localStorage.setItem("calendarEvents", JSON.stringify(events));
     closeEventDetailsModal();
     loadEventsForCurrentWeek(new Date(event.startDateTime));
 }

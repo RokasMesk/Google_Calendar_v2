@@ -1,4 +1,4 @@
-import { ButtonAction, UpdateDateType } from './types.ts';
+import { ButtonAction, UpdateDateType } from './types.js';
 
 export const renderHeader = (date: Date, updateDate: UpdateDateType) => {
   const updateCurrentYearAndMonth = () => {

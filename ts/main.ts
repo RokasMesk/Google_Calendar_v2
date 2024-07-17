@@ -1,8 +1,8 @@
-import { renderHeader } from './header.ts';
-import { renderAside } from './aside.ts';
-import { renderCalendarCells } from './calendar.ts';
-import { initModal } from './modal.ts';
-import { areTwoDatesEqual } from './utils.ts';
+import { renderHeader } from './header.js';
+import { renderAside } from './aside.js';
+import { renderCalendarCells } from './calendar.js';
+import { initModal } from './modal.js';
+import { areTwoDatesEqual } from './utils.js';
 
 const init = (): void => {
   let currentDate = new Date();
