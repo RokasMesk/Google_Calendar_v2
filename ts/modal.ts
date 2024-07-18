@@ -22,7 +22,7 @@ export const initModal = (): { openModal: (date?: Date) => void } => {
       (document.getElementById("endTime") as HTMLInputElement).value = addOneHour(cellDate.getHours());
     }
   };
-
+  
   const closeEventCreationModal = (): void => {
     modalOverlay.style.display = "none";
   };
