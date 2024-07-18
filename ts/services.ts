@@ -1,5 +1,3 @@
-import { closeEventDetailsModal } from "./modal.js";
-import { loadEventsForCurrentWeek } from "./events.js";
 import { Event } from './types.js';
 
 const API_URL = "http://localhost:3000/events"
