@@ -1,25 +1,24 @@
 import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays, dateIsInRange} from './utils.js';
 import { getEventsFromLocalStorage } from './services.js';
-
+import { Event } from './types.js';
 const HOUR_IN_MINUTES = 60;
-const doesEventOverlapWithOtherEvents = (eventCurrent) => {
+
+const doesEventOverlapWithOtherEvents = (eventCurrent: Event): Event[] => {
   const eventStartDateTime = new Date(eventCurrent.startDateTime);
   const eventEndDateTime = new Date(eventCurrent.endDateTime);
   const events = getEventsFromLocalStorage();
 
-  return events.filter((event) => {
+  return events.filter((event: Event) => {
     const eventStart = new Date(event.startDateTime);
     const eventEnd = new Date(event.endDateTime);
     return (
       (dateIsInRange(eventStart, eventEnd, eventStartDateTime) || 
       dateIsInRange(eventStart, eventEnd, eventEndDateTime)) 
-   
     );
   });
 }
-const renderShortEvent = (event) => {
+const renderShortEvent = (event: Event): void => {
   const overlappingEvents = doesEventOverlapWithOtherEvents(event);
-  
   const eventElement = createEventElement(event);
   const startDateTime = new Date(event.startDateTime);
   const endDateTime = new Date(event.endDateTime);
@@ -31,7 +30,7 @@ const renderShortEvent = (event) => {
   if (startDay === 0) {
     startDay = 7;
   }
-  const dayColumn = calendarCells.querySelector(`.cell:nth-child(${startDay})`);
+  const dayColumn = calendarCells?.querySelector(`.cell:nth-child(${startDay})`) as HTMLElement;
   if (!dayColumn) {
     console.error("Day column not found for day:", startDay);
     return;
@@ -54,7 +53,7 @@ const renderShortEvent = (event) => {
   dayColumn.appendChild(eventElement);
 };
 
-const renderMultiDayEvent = (event, startOfWeek, endOfWeek) => {
+const renderMultiDayEvent = (event: Event, startOfWeek: Date, endOfWeek: Date): void => {
   const eventStartDateTime = new Date(event.startDateTime);
   const eventEndDateTime = new Date(event.endDateTime);
   let startDayIndex = -1;
@@ -83,18 +82,18 @@ const renderMultiDayEvent = (event, startOfWeek, endOfWeek) => {
   const eventBar = createMultiDayEventElement(event);
   eventBar.style.gridColumn = `${startDayIndex} / ${endDayIndex + 1}`;
   const multiDayEventPlaceHolder = document.querySelector(".multi-day-events-container");
-  multiDayEventPlaceHolder.appendChild(eventBar);
+  multiDayEventPlaceHolder?.appendChild(eventBar);
 };
-export const loadEventsForCurrentWeek = (currentDate) => {
+export const loadEventsForCurrentWeek = (currentDate:Date): void => {
   clearEvents();
   const startOfWeek = getFirstDayOfTheWeek(currentDate);
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   endOfWeek.setHours(23, 59, 59, 999);
 
-  const events = getEventsFromLocalStorage();
+  const events: Event[] = getEventsFromLocalStorage();
 
-  events.forEach((event) => {
+  events.forEach((event: Event) => {
     const eventStartDateTime = new Date(event.startDateTime);
     const eventEndDateTime = new Date(event.endDateTime);
     const totalDays = differenceBetweenTwoDatesInDays(eventStartDateTime, eventEndDateTime);

@@ -1,22 +1,23 @@
+import { UpdateDate } from './types.js';
 import { isToday, areTwoDatesEqual } from './utils.js';
 
-export const renderAside = (currentDate, updateDate, openModal) => {
-  const currentMonth = document.getElementById("currentDateCalendarWidget");
-  const prevMonthButton = document.getElementById("prevMonth");
-  const nextMonthButton = document.getElementById("nextMonth");
-  const calendarDates = document.getElementById("calendarDates");
-  const addEventButton = document.getElementById("addEventButton");
+export const renderAside = (currentDate: Date, updateDate: UpdateDate, openModal: () => void) => {
+  const currentMonth = document.getElementById("currentDateCalendarWidget") as HTMLElement;
+  const prevMonthButton = document.getElementById("prevMonth") as HTMLElement;
+  const nextMonthButton = document.getElementById("nextMonth") as HTMLElement;
+  const calendarDates = document.getElementById("calendarDates") as HTMLElement;
+  const addEventButton = document.getElementById("addEventButton") as HTMLElement;
 
   const TOTAL_CELLS = 42;
   let displayedMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   let selectedDate = new Date(currentDate);
-  const updateMonthDisplay = () => {
+  const updateMonthDisplay = (): void => {
     currentMonth.textContent = displayedMonth.toLocaleDateString("en-US", { year: 'numeric', month: 'short' });
     renderMonthDays();
   };
-  const createDateCell = (day, className, clickHandler) => {
+  const createDateCell = (day: number, className:string, clickHandler: () => void): HTMLElement => {
     const dateCell = document.createElement('div');
-    dateCell.textContent = day;
+    dateCell.textContent = day.toString();
     if (className) {
       dateCell.classList.add(className);
     }
@@ -25,7 +26,7 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     return dateCell;
   };
 
-  const renderPreviousMonthDays = (startDay, previousMonthTotalDays) => {
+  const renderPreviousMonthDays = (startDay: number, previousMonthTotalDays: number): void => {
     for (let i = 0; i < startDay; i++) { 
       const day = previousMonthTotalDays - startDay + 1 + i;
       const cellDate = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() - 1, day);
@@ -39,7 +40,7 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     }
   };
 
-  const renderCurrentMonthDays = (totalDays) => {
+  const renderCurrentMonthDays = (totalDays: number): void => {
     for (let day = 1; day <= totalDays; day++) {
       const cellDate = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth(), day);
       let className = '';
@@ -56,7 +57,7 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     }
   };
 
-  const renderNextMonthDays = (renderedCells) => {
+  const renderNextMonthDays = (renderedCells: number): void => {
     for (let i = 1; i <= TOTAL_CELLS - renderedCells; i++) {
       const cellDate = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() + 1, i);
       const className = selectedDate && areTwoDatesEqual(cellDate, selectedDate) ? 'selected' : 'next-month-day';
@@ -70,7 +71,7 @@ export const renderAside = (currentDate, updateDate, openModal) => {
     }
   };
 
-  const renderMonthDays = () => {
+  const renderMonthDays = (): void => {
     calendarDates.innerHTML = '';
 
     const firstDayOfMonth = new Date(displayedMonth.getFullYear(), displayedMonth.getMonth(), 1);
