@@ -1,12 +1,12 @@
 import { createEventElement, createMultiDayEventElement, getFirstDayOfTheWeek, clearEvents, differenceBetweenTwoDatesInDays, dateIsInRange} from './utils.js';
-import { getEventsFromLocalStorage } from './services.js';
+import { getEventsFromServer } from './services.js';
 import { Event } from './types.js';
 const HOUR_IN_MINUTES = 60;
 
-const doesEventOverlapWithOtherEvents = (eventCurrent: Event): Event[] => {
+const doesEventOverlapWithOtherEvents = async (eventCurrent: Event): Promise<Event[]> => {
   const eventStartDateTime = new Date(eventCurrent.startDateTime);
   const eventEndDateTime = new Date(eventCurrent.endDateTime);
-  const events = getEventsFromLocalStorage();
+  const events = await getEventsFromServer();
 
   return events.filter((event: Event) => {
     const eventStart = new Date(event.startDateTime);
@@ -17,8 +17,8 @@ const doesEventOverlapWithOtherEvents = (eventCurrent: Event): Event[] => {
     );
   });
 }
-const renderShortEvent = (event: Event): void => {
-  const overlappingEvents = doesEventOverlapWithOtherEvents(event);
+const renderShortEvent = async (event: Event): Promise<void> => {
+  const overlappingEvents = await doesEventOverlapWithOtherEvents(event);
   const eventElement = createEventElement(event);
   const startDateTime = new Date(event.startDateTime);
   const endDateTime = new Date(event.endDateTime);
@@ -84,14 +84,14 @@ const renderMultiDayEvent = (event: Event, startOfWeek: Date, endOfWeek: Date): 
   const multiDayEventPlaceHolder = document.querySelector(".multi-day-events-container");
   multiDayEventPlaceHolder?.appendChild(eventBar);
 };
-export const loadEventsForCurrentWeek = (currentDate:Date): void => {
+export const loadEventsForCurrentWeek = async (currentDate:Date): Promise<void> => {
   clearEvents();
   const startOfWeek = getFirstDayOfTheWeek(currentDate);
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   endOfWeek.setHours(23, 59, 59, 999);
 
-  const events: Event[] = getEventsFromLocalStorage();
+  const events = await getEventsFromServer();
 
   events.forEach((event: Event) => {
     const eventStartDateTime = new Date(event.startDateTime);

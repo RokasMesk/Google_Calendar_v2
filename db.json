@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "id": "1721291112478-4986",
+      "title": "asd",
+      "startDateTime": "2024-07-17T07:00:00.000Z",
+      "endDateTime": "2024-07-17T08:00:00.000Z",
+      "description": "asd"
+    },
+    {
+      "id": "1721291155747-6081",
+      "title": "asd",
+      "startDateTime": "2024-07-17T15:00:00.000Z",
+      "endDateTime": "2024-07-17T16:00:00.000Z",
+      "description": "asd"
+    },
+    {
+      "id": "1721291159761-4470",
+      "title": "asd",
+      "startDateTime": "2024-07-18T09:00:00.000Z",
+      "endDateTime": "2024-07-18T10:00:00.000Z",
+      "description": "asd"
+    },
+    {
+      "id": "1721291449067-4056",
+      "title": "asd",
+      "startDateTime": "2024-07-15T07:00:00.000Z",
+      "endDateTime": "2024-07-15T08:00:00.000Z",
+      "description": "asd"
+    },
+    {
+      "id": "1721291484186-9933",
+      "title": "asd",
+      "startDateTime": "2024-07-17T12:00:00.000Z",
+      "endDateTime": "2024-07-17T13:00:00.000Z",
+      "description": "asd"
+    }
+  ]
+}
