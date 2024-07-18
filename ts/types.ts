@@ -12,4 +12,4 @@ export interface Event {
     description: string;
 }
 
-export type UpdateDateType = (newDate: Date) => void;
+export type UpdateDate = (newDate: Date) => void;

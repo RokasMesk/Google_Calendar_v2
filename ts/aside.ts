@@ -1,7 +1,7 @@
-import { UpdateDateType } from './types.js';
+import { UpdateDate } from './types.js';
 import { isToday, areTwoDatesEqual } from './utils.js';
 
-export const renderAside = (currentDate: Date, updateDate: UpdateDateType, openModal: () => void) => {
+export const renderAside = (currentDate: Date, updateDate: UpdateDate, openModal: () => void) => {
   const currentMonth = document.getElementById("currentDateCalendarWidget") as HTMLElement;
   const prevMonthButton = document.getElementById("prevMonth") as HTMLElement;
   const nextMonthButton = document.getElementById("nextMonth") as HTMLElement;

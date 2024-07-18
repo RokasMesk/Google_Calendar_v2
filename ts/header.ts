@@ -1,6 +1,6 @@
-import { ButtonAction, UpdateDateType } from './types.js';
+import { ButtonAction, UpdateDate } from './types.js';
 
-export const renderHeader = (date: Date, updateDate: UpdateDateType) => {
+export const renderHeader = (date: Date, updateDate: UpdateDate) => {
   const updateCurrentYearAndMonth = () => {
     const currentMonthAndDaySpan = document.getElementById("currentMonthAndDay") as HTMLElement;
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short" };
