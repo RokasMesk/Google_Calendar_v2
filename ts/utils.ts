@@ -1,3 +1,5 @@
+import { loadEventsForCurrentWeek } from "./events.js";
+import { closeEventDetailsModal } from "./modal.js";
 import { deleteEventFromStorage } from "./services.js";
 import { Event } from "./types.js";
 export const MILLISECONDS = (1000 * 60 * 60 * 24);
@@ -40,6 +42,11 @@ export function createMultiDayEventElement(event:Event): HTMLElement {
   eventBar.addEventListener('click', () => showEventDetails(event));
   return eventBar;
 }
+async function  handleDeleteEvent(event:Event): Promise<void> {
+  await deleteEventFromStorage(event);
+  closeEventDetailsModal();
+  loadEventsForCurrentWeek(new Date(event.startDateTime))
+}
 
 function showEventDetails(event:Event): void {
   const eventDetailsModal = document.getElementById("eventDetailsModal") as HTMLElement;
@@ -50,10 +57,16 @@ function showEventDetails(event:Event): void {
   (document.getElementById("eventDetailsDescription") as HTMLElement).innerText = event.description;
   eventDetailsModal.style.display = "block";
   eventDetailsModal.style.zIndex = '2000';
-  const deleteEventButton = document.getElementById('deleteEventButton') as HTMLElement;
-  deleteEventButton.addEventListener('click', () => deleteEventFromStorage(event));
-}
+  let deleteEventButton = document.getElementById('deleteEventButton') as HTMLButtonElement;
+  deleteEventButton = removeEventListeners(deleteEventButton, "click");
+  deleteEventButton.addEventListener('click', () => handleDeleteEvent(event));
 
+}
+export const removeEventListeners = (element: HTMLButtonElement, eventType: string): HTMLButtonElement => {
+  const newElement = element.cloneNode(true) as HTMLButtonElement;
+  element.replaceWith(newElement);
+  return newElement;
+};
 export function clearEvents(): void {
   const eventElements = document.querySelectorAll(".calendar-event");
   const multipleDayEvents = document.querySelectorAll(".multi-day-event");

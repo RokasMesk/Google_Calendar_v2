@@ -1,22 +1,40 @@
-import { closeEventDetailsModal } from "./modal.js";
-import { loadEventsForCurrentWeek } from "./events.js";
-import { Event} from './types.js'
-export function saveEventToLocalStorage(event:Event): void {
-  let events: Event[] = JSON.parse(localStorage.getItem("calendarEvents") || '[]');
-  events.push(event);
-  localStorage.setItem("calendarEvents", JSON.stringify(events));
+import { Event } from './types.js';
+
+const API_URL = "http://localhost:3000/events"
+
+export const saveEventToServer = async (event: Event): Promise<Event> => {
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(event),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error saving event:", error);
+    throw error;
+  }
 }
 
-export function getEventsFromLocalStorage(): Event[] {
-  let events: Event[] = JSON.parse(localStorage.getItem("calendarEvents") || '[]');
-  return events;
+export const getEventsFromServer = async (): Promise<Event[]> => {
+  try {
+    const response = await fetch(API_URL);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw error;
+  }
 }
 
-export function deleteEventFromStorage(event:Event): void {
-  let events: Event[] = getEventsFromLocalStorage();
-  events = events.filter(e => e.id !== event.id);
-  
-  localStorage.setItem("calendarEvents", JSON.stringify(events));
-  closeEventDetailsModal();
-  loadEventsForCurrentWeek(new Date(event.startDateTime));
+export const deleteEventFromStorage = async (event: Event): Promise<void> => {
+  try {
+    const response = await fetch(`${API_URL}/${event.id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    throw error;
+  }
 }

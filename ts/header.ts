@@ -1,5 +1,5 @@
 import { ButtonAction, UpdateDate } from './types.js';
-
+import { removeEventListeners } from './utils.js';
 export const renderHeader = (date: Date, updateDate: UpdateDate) => {
   const updateCurrentYearAndMonth = () => {
     const currentMonthAndDaySpan = document.getElementById("currentMonthAndDay") as HTMLElement;
@@ -25,12 +25,6 @@ export const renderHeader = (date: Date, updateDate: UpdateDate) => {
         switchWeeks(7);
         break;
     }
-  };
-
-  const removeEventListeners = (element: HTMLButtonElement, eventType: string): HTMLButtonElement => {
-    const newElement = element.cloneNode(true) as HTMLButtonElement;
-    element.replaceWith(newElement);
-    return newElement;
   };
 
   let todayButton = document.getElementById("todayButton") as HTMLButtonElement;

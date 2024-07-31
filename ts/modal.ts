@@ -1,5 +1,5 @@
 import { loadEventsForCurrentWeek } from './events.js';
-import { saveEventToLocalStorage} from './services.js'
+import { saveEventToServer } from './services.js'
 import { getFirstDayOfTheWeek,formatHourMinutesForInputForm, addOneHour, generateSimpleID } from './utils.js';
 import { renderCalendarCells } from './calendar.js';
 
@@ -22,7 +22,7 @@ export const initModal = (): { openModal: (date?: Date) => void } => {
       (document.getElementById("endTime") as HTMLInputElement).value = addOneHour(cellDate.getHours());
     }
   };
-
+  
   const closeEventCreationModal = (): void => {
     modalOverlay.style.display = "none";
   };
@@ -55,7 +55,7 @@ export const initModal = (): { openModal: (date?: Date) => void } => {
     }
   });
 
-  const validateEventForm = (event: Event): void => {
+  const validateEventForm = async (event: Event): Promise<void> => {
     event.preventDefault();
     const eventTitle = (document.getElementById("eventTitle") as HTMLInputElement).value;
     const startDate = (document.getElementById("startDate") as HTMLInputElement).value;
@@ -80,7 +80,7 @@ export const initModal = (): { openModal: (date?: Date) => void } => {
         endDateTime: endDateTime.toISOString(),
         description: eventDescription,
       };
-      saveEventToLocalStorage(newEvent);
+      await saveEventToServer(newEvent);
 
       const currentDate = new Date();
       const startOfWeek = getFirstDayOfTheWeek(currentDate);
